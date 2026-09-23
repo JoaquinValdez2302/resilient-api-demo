@@ -1,0 +1,34 @@
+
+services:
+  # Nuestro Balanceador de Carga
+  haproxy:
+    build:
+      context: .
+      dockerfile: Dockerfile.haproxy
+    ports:
+      - "80:80"
+      - "8404:8404"
+    depends_on:
+      - api1
+      - api2
+      - api3
+  # Instancia 1
+  api1:
+    build: .
+    environment:
+      - SERVER_NAME=Servidor_1 🔵
+    restart: always
+
+  # Instancia 2
+  api2:
+    build: .
+    environment:
+      - SERVER_NAME=Servidor_2 🟢
+    restart: always
+
+  # Instancia 3
+  api3:
+    build: .
+    environment:
+      - SERVER_NAME=Servidor_3 🟡
+    restart: always

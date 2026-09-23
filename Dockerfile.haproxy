@@ -1,0 +1,5 @@
+FROM haproxy:alpine
+USER root
+COPY haproxy.cfg /usr/local/etc/haproxy/haproxy.cfg
+# Convertir formato de Windows a Linux y forzar un salto de línea al final
+RUN sed -i 's/\r$//' /usr/local/etc/haproxy/haproxy.cfg && echo "" >> /usr/local/etc/haproxy/haproxy.cfg
